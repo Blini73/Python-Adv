@@ -1,9 +1,9 @@
-from pydantic import Settings
+from pydantic import BaseSettings
 
-
-class Setting(Settings):
+class Settings(BaseSettings):
     app_name: str
     admin_email: str
     items_per_user: int = 50
 
-settings = Setting()
+settings = Settings()
+print(settings.app_name)
