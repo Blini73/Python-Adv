@@ -33,7 +33,7 @@ for row in rows:
     print(row)
 
 cursor.execute('''
-    uptade employees set salary = ? where id = ?
+    update employees set salary = ? where id = ?
 ''', (80000.0, 1))
 
 connection.commit()
@@ -46,7 +46,7 @@ for row in rows:
     print(row)
 
 cursor.execute('''
-    uptade employees set salary = ? where id = ?
+    delete from employees where id = ?
 ''', (1,))
 
 connection.commit()
