@@ -1,6 +1,5 @@
 import sqlite3
 from models import Movie, MovieCreate
-from module_24.database import connection
 
 
 def create_connection():
