@@ -6,7 +6,7 @@ from database import get_db_connection
 def create_item(item: Item) -> Item:
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("insert into items (name, description) values (?, ?)", (item.name, item.desciption))
+    cursor.execute("insert into items (name, description) values (?, ?)", (item.name, item.description))
 
     conn.commit()
     item.id = cursor.lastrowid
@@ -32,20 +32,20 @@ def get_item(item_id: int) -> Optional[Item]:
 def update_item(item_id: int, item: Item) -> Optional[Item]:
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("update items set name = ?, description = ?", (item.name, item.desciption))
+    cursor.execute("update items set name = ?, description = ?", (item.name, item.description))
     conn.commit()
     updated = cursor.rowcount
     conn.close()
     if updated == 0:
         return None
-    item.id = item.id
+    item.id = item_id
     return item
 
-def delete_item(item:id: int) -> bool:
-  conn = get_db_connection()
-  cursor = conn.cursor()
-  cursor.excute("delete from items where id = ?" , (item_id,))
-  conn.commit()
-  deleted = cursor.rowcount
-  conn.close()
-  return deleted > 0
+def delete_item(item_id: int) -> bool:
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("delete from items where id = ?", (item_id,))
+    conn.commit()
+    deleted = cursor.rowcount
+    conn.close()
+    return deleted > 0
