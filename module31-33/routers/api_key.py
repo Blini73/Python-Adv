@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPExeception, status, Depends
+from fastapi import APIRouter, HTTPException, status, Depends
 from auth.security import get_api_key
 
 router = APIRouter()

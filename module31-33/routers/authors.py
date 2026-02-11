@@ -7,7 +7,7 @@ from auth.security import get_api_key
 
 router = APIRouter()
 
-@router.get(path="/", response_model=List[Author])
+@router.get("/", response_model=List[Author])
 def get_authors():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -16,7 +16,7 @@ def get_authors():
     conn.close()
     return [{"id": author[0], "name": author[1]} for author in authors]
 
-@router.post(path="/", response_model=Author)
+@router.post("/", response_model=Author)
 def create_author(author: AuthorCreate, _: str = Depends(get_api_key)):
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -33,7 +33,7 @@ def create_author(author: AuthorCreate, _: str = Depends(get_api_key)):
     finally:
         conn.close()
 
-@router.put(path: "/{author_id}", response_model=Author)
+@router.put("/{author_id}", response_model=Author)
 def update_author(author_id: int, author: AuthorCreate, _: str = Depends(get_api_key)):
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -46,7 +46,7 @@ def update_author(author_id: int, author: AuthorCreate, _: str = Depends(get_api
     return Author(id=author_id, name=author.name)
 
 
-@router.delete(path: "/{author_id}", response_model=dict)
+@router.delete("/{author_id}", response_model=dict)
 def delete_author(author_id: int, _: str = Depends(get_api_key)):
     conn = get_db_connection()
     cursor = conn.cursor()

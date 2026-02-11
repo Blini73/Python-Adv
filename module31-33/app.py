@@ -166,7 +166,6 @@ def books_dashboard(api_key):
     if action == "Update Book":
         selected_book = st.selectbox("Select Book to Update", options=[book['title'] for book in books],
                                      key="select_book_update")
-
         if selected_book:
             book = next((book for book in books if book['title'] == selected_book), None)
             new_book_title = st.text_input("Title", value=book['title'])
@@ -221,8 +220,17 @@ def visualizations_dashboard():
 
         min_year = int(df_books['published_year'].min())
         max_year = int(df_books['published_year'].max())
-        selected_year = st.sidebar.slider("Select Published Year", min_value=min_year, max_value=max_year,
-                                          value=(min_year, max_year))
+
+        if min_year == max_year:
+            st.sidebar.info(f"Only one published year available: {min_year}")
+            selected_year = (min_year, max_year)
+        else:
+            selected_year = st.sidebar.slider(
+                "Select Published Year",
+                min_value=min_year,
+                max_value=max_year,
+                value=(min_year, max_year)
+            )
 
         selected_rating = st.sidebar.slider("Select Average Rating", min_value=0.0, max_value=5.0, value=(0.0, 5.0),
                                             step=0.1)
